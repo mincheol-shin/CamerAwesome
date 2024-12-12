@@ -5,7 +5,6 @@ import 'package:camerawesome/camerawesome_plugin.dart';
 import 'package:camerawesome/pigeon.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-import 'utils/file_utils.dart';
 
 void main() {
   runApp(const CameraAwesomeApp());
@@ -115,12 +114,10 @@ class CameraPage extends StatelessWidget {
             mediaCapture.captureRequest.when(
               single: (single) {
                 debugPrint('single: ${single.file?.path}');
-                single.file?.open();
               },
               multiple: (multiple) {
                 multiple.fileBySensor.forEach((key, value) {
                   debugPrint('multiple file taken: $key ${value?.path}');
-                  value?.open();
                 });
               },
             );

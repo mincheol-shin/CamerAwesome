@@ -496,6 +496,7 @@ class _CameraWidgetBuilder extends State<CameraAwesomeBuilder>
                             widget.pictureInPictureConfigBuilder,
                       ),
               ),
+
             ],
           );
         },

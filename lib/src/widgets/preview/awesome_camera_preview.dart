@@ -152,7 +152,6 @@ class AwesomeCameraPreviewState extends State<AwesomeCameraPreview> {
                 : const CircularProgressIndicator(),
           );
     }
-
     return Container(
       color: Colors.black,
       child: LayoutBuilder(
@@ -191,13 +190,28 @@ class AwesomeCameraPreviewState extends State<AwesomeCameraPreview> {
                       //FIX performances
                       stream: widget.state.filter$,
                       builder: (context, snapshot) {
-                        return snapshot.hasData &&
-                                snapshot.data != AwesomeFilter.None
-                            ? ColorFiltered(
-                                colorFilter: snapshot.data!.preview,
-                                child: _textures.first,
-                              )
-                            : _textures.first;
+                        return Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            snapshot.hasData &&
+                                    snapshot.data != AwesomeFilter.None
+                                ? ColorFiltered(
+                                    colorFilter: snapshot.data!.preview,
+                                    child: _textures.first,
+                                  )
+                                : _textures.first,
+                            Positioned.fill(
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 100),
+                                child: Image.asset(
+                                  'packages/camerawesome/assets/icons/camera_preview.png',
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
                       },
                     ),
                   ),
@@ -217,6 +231,7 @@ class AwesomeCameraPreviewState extends State<AwesomeCameraPreview> {
                     _preview!,
                   ),
                 ),
+
               // TODO: be draggable
               // TODO: add shadow & border
               ..._buildPreviewTextures(),
